@@ -9,7 +9,7 @@ import HelloWorld from './components/HelloWorld.vue'
     <span>1111</span>
     <div class="wrapper">
       <HelloWorld msg="You did it!" />
-
+      <p>appear-active-class=""</p>
       <nav>
         <RouterLink to="/">Home</RouterLink>
         <RouterLink to="/about">About</RouterLink>
