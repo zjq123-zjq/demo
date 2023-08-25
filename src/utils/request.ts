@@ -2,9 +2,9 @@ import axios, { type Method } from 'axios'
 import { useUserStore } from '@/stores/user'
 import router from '@/router'
 import { showToast } from 'vant'
-
+import type { Data } from '@/types/user'
 const service = axios.create({
-  baseURL: '',
+  baseURL: 'dev-api',
   timeout: 5000
 })
 
@@ -38,8 +38,9 @@ service.interceptors.response.use(
     return Promise.reject(error)
   }
 )
-const request = (url: string, method: Method, data?: any) => {
-  return service({
+
+const request = <T>(url: string, method: Method, data?: any) => {
+  return service.request<T, Data<T>>({
     url,
     method,
     [method.toLowerCase() === 'get' ? 'params' : 'data']: data

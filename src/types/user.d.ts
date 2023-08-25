@@ -5,3 +5,9 @@ export type User = {
   account: string
   mobile: string
 }
+
+export type Data<T> = {
+  code: number
+  message: string
+  data: T
+}
