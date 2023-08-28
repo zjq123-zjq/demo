@@ -27,7 +27,7 @@ export default defineConfig({
   server: {
     proxy: {
       '/dev-api': {
-        target: 'http://jsonplaceholder.typicode.com',
+        target: 'https://consult-api.itheima.net',
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/dev-api/, '')
       }

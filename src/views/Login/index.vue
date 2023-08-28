@@ -1,30 +1,62 @@
 <script setup lang="ts">
-import { ref } from 'vue'
-import vanNavBar from '@/components/CpNavBar.vue'
-import CpIcon from '@/components/CpIcon.vue'
+import { ref, onUnmounted } from 'vue'
 import { showToast } from 'vant'
-import { mobileRules, passwordRules } from '@/utils/rules'
-import type { loginParamsRules } from '@/services/types/user'
-
+import { useUserStore } from '@/stores/user'
+import { useRouter, useRoute } from 'vue-router'
+import { mobileRules, passwordRules, codeRules } from '@/utils/rules'
+import { loginByPassword, sendMobileCode, loginByMobile } from '@/services/user'
+const router = useRouter()
+const route = useRoute()
+const store = useUserStore()
 const loginFrom = ref({
   mobile: '13230000001',
-  password: 'abc12345'
+  password: 'abc12345',
+  code: ''
 })
-const agree = ref(false)
-const show = ref(false)
+const isPass = ref(false)
+const agree = ref<boolean>(false)
+const show = ref<boolean>(false)
 const login = async () => {
   if (!agree.value) {
-    showToast('请勾选我已同意')
+    return showToast('请勾选我已同意')
+  }
+  try {
+    const res = isPass.value
+      ? await loginByPassword(loginFrom.value.mobile, loginFrom.value.password)
+      : await loginByMobile(loginFrom.value.mobile, loginFrom.value.code)
+    store.setUser(res.data)
+    router.replace((route.query.returnUrl as string) || '/user')
+    showToast('登录成功')
+  } catch (error) {
+    console.log(error)
   }
 }
+const time = ref(0)
+let timeId: number = 0
+const send = async () => {
+  if (time.value > 0) {
+    return
+  }
+  await sendMobileCode(loginFrom.value.mobile, 'login')
+  showToast('发生成功')
+  time.value = 60
+  clearInterval(timeId)
+  timeId = setInterval(() => {
+    time.value--
+    if (time.value <= 0) clearInterval(timeId)
+  }, 1000)
+}
+onUnmounted(() => {
+  clearInterval(timeId)
+})
 </script>
 <template>
   <div class="login-page">
-    <van-nav-bar rightText="注册"> </van-nav-bar>
+    <CpNavBar rightText="注册"> </CpNavBar>
     <div class="login-head">
-      <h3>密码登录</h3>
-      <a href="javascript:;">
-        <span>短信验证码登录</span>
+      <h3>{{ isPass ? '密码登录' : '短信验证码登录' }}</h3>
+      <a href="javascript:;" @click="isPass = !isPass">
+        <span>{{ !isPass ? '密码登录' : '短信验证码登录' }}</span>
         <van-icon name="arrow" />
       </a>
     </div>
@@ -37,6 +69,7 @@ const login = async () => {
         :rules="mobileRules"
       />
       <van-field
+        v-if="isPass"
         v-model="loginFrom.password"
         :type="show ? 'text' : 'password'"
         name="密码"
@@ -45,6 +78,13 @@ const login = async () => {
       >
         <template #button>
           <CpIcon @click="show = !show" :name="`login-eye-${show ? 'on' : 'off'}`"> </CpIcon>
+        </template>
+      </van-field>
+      <van-field v-else v-model="loginFrom.code" placeholder="请输入验证码" :rules="codeRules">
+        <template #button>
+          <span class="btn-send" @click="send" :class="{ active: time > 0 }">{{
+            time > 0 ? `${time}s后再次发送` : '发生验证码'
+          }}</span>
         </template>
       </van-field>
       <div>
@@ -123,6 +163,14 @@ const login = async () => {
 
   .van-button {
     background-color: var(--cp-primary);
+  }
+}
+
+.btn-send {
+  color: var(--cp-primary);
+
+  &.active {
+    color: rgba(22, 194, 163, 0.5);
   }
 }
 </style>

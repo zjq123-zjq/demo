@@ -2,9 +2,9 @@ import axios, { type Method } from 'axios'
 import { useUserStore } from '@/stores/user'
 import router from '@/router'
 import { showToast } from 'vant'
-import type { Data } from '@/types/user'
+import type { Data } from '@/types/request'
 const service = axios.create({
-  baseURL: 'dev-api',
+  baseURL: '/dev-api',
   timeout: 5000
 })
 
@@ -23,7 +23,7 @@ service.interceptors.request.use(
 
 service.interceptors.response.use(
   function (res) {
-    if (res.data.code === 10000) {
+    if (res.data.code !== 10000) {
       showToast(res.data?.message)
       return Promise.reject(res.data)
     }

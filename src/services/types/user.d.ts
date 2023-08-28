@@ -1,4 +1,1 @@
-export interface loginParamsRules {
-  mobile: String
-  password: String
-}
+export type CodeType = 'login' | 'register' | 'changeMobile' | 'forgetPassword' | 'bindMobile'
