@@ -1,4 +1,4 @@
-import type { User } from '@/types/user'
+import type { User, UserInfo } from '@/types/user.d'
 import request from '../utils/request'
 import type { CodeType } from './types/user.d'
 
@@ -12,4 +12,8 @@ export const sendMobileCode = (mobile: string, type: CodeType) => {
 
 export const loginByMobile = (mobile: string, code: string) => {
   request<User>('/login', 'POST', { mobile, code })
+}
+
+export const getUserInfo = () => {
+  return request<UserInfo>('/patient/myUser', 'GET')
 }

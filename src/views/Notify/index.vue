@@ -1,7 +1,7 @@
 <script setup lang="ts"></script>
 
 <template>
-  <div>用户页</div>
+  <div class="notify-page">notify</div>
 </template>
 
 <style lang="scss" scoped></style>
