@@ -125,6 +125,7 @@ onMounted(async () => {
         :title="item.title"
         icon="location-o"
         is-link
+        :to="item.path"
       >
         <template #icon>
           <CpIcon class="cpicon" :name="`user-tool-0${index + 1}`"></CpIcon>

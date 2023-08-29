@@ -3,7 +3,7 @@ import { defineStore } from 'pinia'
 import { ref } from 'vue'
 
 export const useUserStore = defineStore(
-  'mt-user',
+  'my-user',
   () => {
     // ⽤户信息
     const user = ref<User>()
