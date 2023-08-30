@@ -7,17 +7,15 @@ import { useRouter, useRoute } from 'vue-router'
 import { showConfirmDialog } from 'vant'
 const store = useUserStore()
 const router = useRouter()
-const logout = () => {
-  showConfirmDialog({
+const logout = async () => {
+  await showConfirmDialog({
     title: '温馨提示',
     message: '您确定要退出优医问诊吗？'
   })
-    .then(() => {
-      store.delUser()
-      router.push('/login')
-    })
-    .catch(() => {})
+  store.delUser()
+  router.push('/login')
 }
+//快捷工具
 const tools = [
   {
     title: '我的问诊',
@@ -99,20 +97,20 @@ onMounted(async () => {
         </van-col>
         <van-col span="6">
           <van-badge :content="user.orderInfo.shippedNumber || ''" color="#1989fa">
-            <CpIcon name="user-shipped" class="cpicon"></CpIcon
-          ></van-badge>
+            <CpIcon name="user-shipped" class="cpicon"></CpIcon>
+          </van-badge>
           <p>待发货</p>
         </van-col>
         <van-col span="6">
           <van-badge :content="user.orderInfo.receivedNumber || ''" color="#1989fa">
-            <CpIcon name="user-received" class="cpicon"></CpIcon
-          ></van-badge>
+            <CpIcon name="user-received" class="cpicon"></CpIcon>
+          </van-badge>
           <p>待收货</p>
         </van-col>
         <van-col span="6">
           <van-badge :content="user.orderInfo.finishedNumber || ''" color="#1989fa">
-            <CpIcon name="user-finished" class="cpicon"></CpIcon
-          ></van-badge>
+            <CpIcon name="user-finished" class="cpicon"></CpIcon>
+          </van-badge>
           <p>已完成</p>
         </van-col>
       </van-row>
@@ -142,7 +140,6 @@ onMounted(async () => {
   min-height: calc(100vh - 60px);
   background-color: var(--cp-bg);
   padding: 0 15px 65px;
-
   &-head {
     height: 200px;
     margin: 0 -15px;
@@ -191,32 +188,27 @@ onMounted(async () => {
       }
     }
   }
-
   &-order {
     background-color: white;
     border-radius: 10px;
     margin-bottom: 20px;
     padding: 10px 10px 15px;
-
     .head {
       display: flex;
       justify-content: space-between;
       align-items: center;
-
       p {
         color: var(--cp-dark);
       }
     }
-
     .van-row {
+      margin-top: 5px;
       .van-col {
         text-align: center;
         margin: 0;
-
         .cpicon {
           font-size: 28px;
         }
-
         p {
           margin: 0;
           font-weight: 600;
@@ -224,15 +216,19 @@ onMounted(async () => {
       }
     }
   }
+
   &-group {
     background-color: #fff;
     border-radius: 10px;
+
     h3 {
       line-height: 45px;
       padding-left: 20px;
     }
+
     .van-cell {
       align-items: center;
+
       .cpicon {
         font-size: 20px;
         margin-right: 10px;
@@ -240,6 +236,7 @@ onMounted(async () => {
     }
   }
 }
+
 .logout {
   display: block;
   margin: 20px auto;

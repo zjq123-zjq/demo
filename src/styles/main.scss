@@ -14,23 +14,44 @@
   --cp-price: #EB5757;
 
   // 覆盖vant主体⾊
- --van-primary-color: var(--cp-primary);
- // 单元格上下间距
- --van-cell-vertical-padding: 14px;
- // 复选框⼤⼩
- --van-checkbox-size: 14px;
- // 默认按钮⽂字⼤⼩
- --van-button-normal-font-size: 16px;
+  --van-primary-color: var(--cp-primary);
+  // 单元格上下间距
+  --van-cell-vertical-padding: 14px;
+  // 复选框⼤⼩
+  --van-checkbox-size: 14px;
+  // 默认按钮⽂字⼤⼩
+  --van-button-normal-font-size: 16px;
 }
 
-body{
-     font-size:14px;
-     color:var(--cp-text1);
-     margin: 0;
-     padding: 0;
+body {
+  font-size: 14px;
+  color: var(--cp-text1);
+  margin: 0;
+  padding: 0;
 }
 
-h1,h2,h3,h4,h5,h6,p{
-    margin:0;
-    padding:0;
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
+  margin: 0;
+  padding: 0;
+}
+
+.van-tabs {
+  .van-tabs__nav {
+    padding: 0 0 15px 0;
+  }
+
+  .van-tabs__line {
+    width: 20px;
+    background-color: var(--cp-primary);
+  }
+
+  .van-tab {
+    padding: 0 15px;
+  }
 }
