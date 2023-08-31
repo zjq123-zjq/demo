@@ -4,6 +4,9 @@ import FollowDoctor from './components/FollowDoctor.vue'
 import { ref } from 'vue'
 import type { KnowledgeType } from '@/types/consult'
 const active = ref<KnowledgeType>('recommend')
+import { useCounterStore } from '@/stores/consult'
+import { ConsultType } from '@/enums'
+const store = useCounterStore()
 </script>
 
 <template>
@@ -24,7 +27,7 @@ const active = ref<KnowledgeType>('recommend')
           </router-link>
         </van-col>
         <van-col span="8">
-          <router-link to="/" class="nav">
+          <router-link to="/consult/fast" class="nav" @click="store.setType(ConsultType.Fast)">
             <CpIcon class="icon" name="home-graphic"></CpIcon>
             <p class="title">极速问诊</p>
             <p class="desc">20s医生极速回复</p>
@@ -80,9 +83,15 @@ const active = ref<KnowledgeType>('recommend')
         <FollowDoctor />
         <KnowledgeList type="like" />
       </van-tab>
-      <van-tab title="推荐" name="recommend"><KnowledgeList type="recommend" /> </van-tab>
-      <van-tab title="减脂" name="fatReduction"><KnowledgeList type="fatReduction" /> </van-tab>
-      <van-tab title="饮食" name="food"><KnowledgeList type="food" /> </van-tab>
+      <van-tab title="推荐" name="recommend">
+        <KnowledgeList type="recommend" />
+      </van-tab>
+      <van-tab title="减脂" name="fatReduction">
+        <KnowledgeList type="fatReduction" />
+      </van-tab>
+      <van-tab title="饮食" name="food">
+        <KnowledgeList type="food" />
+      </van-tab>
     </van-tabs>
   </div>
 </template>

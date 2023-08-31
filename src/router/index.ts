@@ -22,6 +22,21 @@ const router = createRouter({
       component: () => import('../views/User//PatientPage.vue')
     },
     {
+      path: '/consult/fast',
+      meta: { title: '极速问诊' },
+      component: () => import('../views/Consult/ConsultFast.vue')
+    },
+    {
+      path: '/consult/dep',
+      meta: { title: '选择科室' },
+      component: () => import('../views/Consult/ConsultDep.vue')
+    },
+    {
+      path: '/consult/illness',
+      meta: { title: '病情描述' },
+      component: () => import('../views/Consult/ConsultIllness.vue')
+    },
+    {
       path: '/',
       name: 'layout',
       component: () => import('../views/Layout/index.vue'),
@@ -45,7 +60,6 @@ const router = createRouter({
           meta: { title: '消息通知' },
           component: () => import('../views/Notify/index.vue')
         },
-
         {
           path: '/user',
           name: 'user',

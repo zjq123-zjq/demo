@@ -1,5 +1,5 @@
 import type { Knowledgepage, KnowledgeParams } from '@/types/knowledge'
-import type { PageParams, DoctorPage } from '@/types/consult'
+import type { PageParams, DoctorPage, TopDep } from '@/types/consult'
 import request from '@/utils/request'
 import type { FollowType } from '../types/consult'
 export const getKnowledgePage = (params: KnowledgeParams) =>
@@ -10,3 +10,5 @@ export const getDoctorPage = (params: PageParams) =>
 
 export const followDotor = (id: string, type: FollowType = 'doc') =>
   request('/like', 'POST', { id, type })
+
+export const getAllDep = () => request<TopDep[]>('dep/all', 'GET')

@@ -3,6 +3,9 @@ import type { Knowledge } from '@/types/knowledge'
 defineProps<{
   item: Knowledge
 }>()
+import { useFollow } from '@/composable'
+
+const { loading, follow } = useFollow()
 </script>
 
 <template>
@@ -13,7 +16,7 @@ defineProps<{
         <p class="name">{{ item.creatorName }}</p>
         <p class="dep van-ellipsis">{{ item.creatorHospatalName }}</p>
       </div>
-      <van-button class="btn" size="small" round>{{
+      <van-button class="btn" size="small" round :loading="loading" @click="follow(item)">{{
         item.likeFlag === 1 ? '已关注' : ' + 关注'
       }}</van-button>
     </div>

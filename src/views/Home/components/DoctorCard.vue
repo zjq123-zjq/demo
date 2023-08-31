@@ -2,18 +2,19 @@
 import { ref } from 'vue'
 import type { Doctor } from '@/types/consult'
 import { followDotor } from '@/services/consult'
+import { useFollow } from '@/composable'
 
-const loading = ref(false)
-const follow = async (doc: Doctor) => {
-  loading.value = true
-  try {
-    await followDotor(doc.id)
-    doc.likeFlag = doc.likeFlag === 1 ? 0 : 1
-  } finally {
-    loading.value = false
-  }
-}
-
+const { loading, follow } = useFollow()
+// const loading = ref(false)
+// const follow = async (doc: Doctor) => {
+//   loading.value = true
+//   try {
+//     await followDotor(doc.id)
+//     doc.likeFlag = doc.likeFlag === 1 ? 0 : 1
+//   } finally {
+//     loading.value = false
+//   }
+// }
 defineProps<{
   item: Doctor
 }>()
