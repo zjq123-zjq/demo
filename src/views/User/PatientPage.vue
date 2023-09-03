@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { useRouter } from 'vue-router'
+import { useRouter, useRoute } from 'vue-router'
 import { ref, computed } from 'vue'
 import CpIcon from '@/components/CpIcon.vue'
 import { getPatientList, addPatient, editPatient, delPatient } from '@/services/patient'
@@ -7,8 +7,13 @@ import type { Patient, PatientList } from '@/types/user.d'
 import { showToast } from 'vant'
 import Validator from 'id-validator'
 import { showConfirmDialog } from 'vant'
+import { useCounterStore } from '@/stores/consult'
+const store = useCounterStore()
 const router = useRouter()
-
+const route = useRoute()
+const isChange = computed(() => {
+  return route.query.isChange
+})
 const defaultFlag = computed({
   get() {
     return patient.value.defaultFlag === 1 ? true : false
@@ -29,6 +34,11 @@ const list = ref<PatientList>([])
 const getlist = async () => {
   let res = await getPatientList()
   list.value = res.data
+  if (isChange.value && list.value.length) {
+    const defPatient = list.value.find((item) => item.defaultFlag === 1)
+    if (defPatient) patientId.value = defPatient.id
+    else patientId.value = list.value[0].id
+  }
 }
 getlist()
 const showRight = ref(false)
@@ -85,12 +95,33 @@ const remove = async () => {
   getlist()
   showToast('删除成功')
 }
+const patientId = ref<string>()
+const selectedPatient = (item: Patient) => {
+  if (isChange.value) {
+    patientId.value = item.id
+  }
+}
+const next = async () => {
+  if (!patientId.value) return showToast('请选择就诊患者')
+  store.setPatient(patientId.value)
+  router.push('/consult/pay')
+}
 </script>
 
 <template>
   <div class="patien-page">
-    <CpNavBar title="家庭档案"></CpNavBar>
-    <div class="patien-page-list" v-for="(item, index) in list" :key="index">
+    <CpNavBar :title="isChange ? '选择患者' : '家庭档案'"></CpNavBar>
+    <div class="patient-change" v-if="isChange">
+      <h3>请选择患者信息</h3>
+      <p>以便医生给出更准确的治疗，信息仅医生可见</p>
+    </div>
+    <div
+      class="patien-page-list"
+      v-for="(item, index) in list"
+      :key="index"
+      @click="selectedPatient(item)"
+      :class="{ selected: patientId === item.id }"
+    >
       <div class="item">
         <div class="name">{{ item?.name }}</div>
         <div class="idCard">
@@ -137,6 +168,9 @@ const remove = async () => {
         <van-action-bar-button @click="remove"> 删除 </van-action-bar-button>
       </van-action-bar>
     </van-popup>
+    <div class="patient-next" v-if="isChange">
+      <van-button type="primary" @click="next" round block>下一步</van-button>
+    </div>
   </div>
 </template>
 
@@ -146,12 +180,15 @@ const remove = async () => {
   padding: 0 15px;
 
   &-list {
-    background-color: var(--cp-line);
-    padding: 20px;
-    border-radius: 5px;
-    margin-top: 20px;
+    background-color: var(--cp-bg);
+    padding: 15px;
+    border: 1px solid var(--cp-bg);
+    border-radius: 8px;
     display: flex;
-    justify-content: space-between;
+    align-items: center;
+    overflow: hidden;
+    position: relative;
+    margin-bottom: 15px;
 
     .item {
       width: 65%;
@@ -197,7 +234,10 @@ const remove = async () => {
       font-size: 18px;
     }
   }
-
+  .selected {
+    border-color: var(--cp-primary);
+    background-color: var(--cp-plain);
+  }
   &-add {
     background-color: var(--cp-line);
     padding: 20px;
@@ -238,6 +278,26 @@ const remove = async () => {
         background-color: var(--cp-bg);
       }
     }
+  }
+  .patient-change {
+    padding: 15px;
+    > h3 {
+      font-weight: normal;
+      margin-bottom: 5px;
+    }
+    > p {
+      color: var(--cp-text3);
+    }
+  }
+  .patient-next {
+    padding: 15px;
+    background-color: #fff;
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 80px;
+    box-sizing: border-box;
   }
 }
 </style>
