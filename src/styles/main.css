@@ -52,7 +52,3 @@ p {
 #nprogress .bar {
   background-color: var(--cp-primary) !important;
 }
-
-button {
-  background-color: var(--cp-primary) !important;
-}

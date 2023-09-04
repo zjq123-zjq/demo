@@ -28,17 +28,16 @@ const form = ref<ConsultIllness>({
   pictures: []
 })
 
-const onAfterRead = async (item: any) => {
-  if (Array.isArray(item)) return
+const onAfterRead: UploaderAfterRead = async (item: any) => {
   if (!item.file) return
   item.state = 'uploading'
   item.message = '上传中...'
   try {
-    let res = await uploadImage(item.file)
-    item.state = 'done'
-    item.message = undefined
-    item.url = res.data.url
+    const res = await uploadImage(item.file)
     form.value.pictures?.push(res.data)
+    item.url = res.data.url
+    item.state = 'done'
+    item.message = ''
   } catch {
     item.state = 'failed'
     item.message = '上传失败'
@@ -236,12 +235,15 @@ onMounted(() => {
       }
     }
   }
+
   .btn {
     padding: 0 15px;
+
     .van-button {
       font-size: 16px;
       margin-bottom: 30px;
       background-color: var(--cp-primary);
+
       &.disabled {
         opacity: 1;
         background: #fafafa;

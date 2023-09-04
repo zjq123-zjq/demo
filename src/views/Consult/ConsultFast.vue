@@ -5,7 +5,11 @@ const store = useCounterStore()
 
 <template>
   <div class="consult-fast-page">
-    <CpNavBar title="极速问诊" right-text="问诊记录"></CpNavBar>
+    <CpNavBar
+      title="极速问诊"
+      right-text="问诊记录"
+      @click-right="$router.push('/user/consult')"
+    ></CpNavBar>
     <div class="fast-logo">
       <img class="img" src="@/assets/consult-fast.png" alt="" />
       <p class="text"><span>20s</span>快速匹配专业医生</p>

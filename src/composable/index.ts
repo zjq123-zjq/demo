@@ -1,6 +1,8 @@
 import { ref } from 'vue'
 import type { FollowType } from '@/types/consult'
 import { followDotor } from '@/services/consult'
+
+import { ImagePreview } from 'vant'
 export const useFollow = (type: FollowType = 'doc') => {
   const loading = ref(false)
   const follow = async (obj: { id: string; likeFlag: 0 | 1 }) => {
