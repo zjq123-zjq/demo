@@ -1,4 +1,3 @@
-import CpIcon from '@/components/CpIcon.vue';
 <script setup lang="ts">
 import { ref, computed, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
@@ -12,7 +11,7 @@ import { showConfirmDialog } from 'vant'
 const router = useRouter()
 const store = useCounterStore()
 const timeOptions = [
-  { label: '一周内', value: IllnessTime.week },
+  { label: '一周内', value: IllnessTime.Week },
   { label: '一月内', value: IllnessTime.Month },
   { label: '半年内', value: IllnessTime.HalfYear },
   { label: '大于半年', value: IllnessTime.More }

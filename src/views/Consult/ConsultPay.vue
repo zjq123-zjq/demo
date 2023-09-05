@@ -131,7 +131,14 @@ onMounted(() => {
       :loading="loading"
       @click="submit"
     />
-    <van-action-sheet
+    <cp-pay-sheet
+      v-model:show="show"
+      :order-id="orderId"
+      :actualPayment="payInfo.actualPayment"
+      :onClose="onClose"
+    ></cp-pay-sheet>
+
+    <!-- <van-action-sheet
       v-model:show="show"
       title="选择支付方式"
       :close-on-popstate="false"
@@ -154,7 +161,7 @@ onMounted(() => {
           <van-button type="primary" block round @click="pay">立即支付</van-button>
         </div>
       </div>
-    </van-action-sheet>
+    </van-action-sheet> -->
   </div>
 </template>
 

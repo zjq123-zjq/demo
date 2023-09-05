@@ -126,6 +126,7 @@ export type ConsultOrderPage = {
 }
 
 export type ConsultOrderItem = {
+  evaluateId: any
   /**
    * 开药门诊必有-过敏史0无1有2不清楚
    */
@@ -218,6 +219,16 @@ export type ConsultOrderItem = {
    * 订单类型1问医生2极速问诊2开药问诊--默认是1
    */
   type?: number
+  // 积分抵扣
+  pointDeduction: number
+  // 优惠券抵扣
+  couponDeduction: number
+  // 优惠券ID
+  couponId: string
+  // 需付款
+  payment: number
+  // 实付款
+  actualPayment: number
 }
 
 /**
@@ -298,4 +309,6 @@ export type PatientInfo = {
    * 患者姓名
    */
   name: string
+  //性别
+  genderValue: string
 }
