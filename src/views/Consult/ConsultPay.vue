@@ -133,9 +133,10 @@ onMounted(() => {
     />
     <cp-pay-sheet
       v-model:show="show"
-      :order-id="orderId"
+      :orderId="orderId"
       :actualPayment="payInfo.actualPayment"
       :onClose="onClose"
+      payCallback="room"
     ></cp-pay-sheet>
 
     <!-- <van-action-sheet

@@ -4,6 +4,8 @@ import { followDotor, cancelOrder, getPrescriptionPic, deleteOrder } from '@/ser
 import { OrderType } from '@/enums'
 
 import { ImagePreview, showToast } from 'vant'
+import type { OrderDetailResponseType } from '@/types/order'
+import { getMedicalOrderDetail } from '@/services/order'
 export const useFollow = (type: FollowType = 'doc') => {
   const loading = ref(false)
   const follow = async (obj: { id: string; likeFlag: 0 | 1 }) => {
@@ -53,4 +55,14 @@ export const useDeleteOrder = (cb: (id: string | number) => void) => {
     }
   }
   return { deleteLoading, deleteConsultOrder }
+}
+
+export function useMedicineOrderDetail(id: string) {
+  const item = ref<OrderDetailResponseType>()
+  const initMedicineOrderDetail = async () => {
+    const res = await getMedicalOrderDetail(id)
+    item.value = res.data
+  }
+  initMedicineOrderDetail()
+  return { item, initMedicineOrderDetail }
 }

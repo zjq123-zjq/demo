@@ -2,12 +2,14 @@
 import { showLoadingToast, showToast } from 'vant'
 import { ref } from 'vue'
 import { getConsultOrderPayUrl } from '@/services/consult'
-const { orderId, show } = defineProps<{
+const props = defineProps<{
+  show: boolean
   orderId: string
   actualPayment: number
   onClose?: () => void
-  show: boolean
+  payCallback: string
 }>()
+
 const emits = defineEmits<{
   (e: 'update:show', val: boolean): void
 }>()
@@ -18,10 +20,11 @@ const pay = async () => {
     message: '跳转支付',
     forbidClick: true
   })
+
   const res = await getConsultOrderPayUrl({
-    orderId: orderId,
+    orderId: props.orderId,
     paymentMethod: paymentMethod.value,
-    payCallback: 'http://localhost:5173/#/room'
+    payCallback: 'http://localhost:5173/#' + props.payCallback
   })
   window.location.href = res.data.payUrl
 }

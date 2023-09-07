@@ -39,25 +39,31 @@ const { loading, follow } = useFollow()
 <style lang="scss" scoped>
 .knowledge-card {
   padding: 20px 0 16px;
+
   .head {
     display: flex;
     align-items: center;
+
     .avatar {
       width: 38px;
       height: 38px;
       margin-right: 10px;
     }
+
     .info {
       width: 200px;
       padding-right: 10px;
+
       .name {
         color: var(--cp-text2);
       }
+
       .dep {
         color: var(--cp-tip);
         font-size: 12px;
       }
     }
+
     .btn {
       padding: 0 12px;
       border-color: var(--cp-primary);
@@ -66,32 +72,39 @@ const { loading, follow } = useFollow()
       width: 72px;
     }
   }
+
   .body {
     .title {
       font-size: 16px;
       margin-top: 8px;
       font-weight: 900;
     }
+
     .intro {
       margin-top: 7px;
       color: var(--cp-text3);
     }
+
     .imgs {
       margin-top: 7px;
       display: flex;
+
       .van-image {
         width: 100px;
         height: 100px;
         margin-right: 12px;
         border-radius: 12px;
         overflow: hidden;
+
         &:last-child {
           margin-right: 0;
         }
       }
     }
+
     .logs {
       margin-top: 10px;
+
       > span {
         color: var(--cp-tip);
         margin-right: 16px;

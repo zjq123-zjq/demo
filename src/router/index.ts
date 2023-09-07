@@ -57,6 +57,26 @@ const router = createRouter({
       component: () => import('../views/Room/index.vue')
     },
     {
+      path: '/order/pay',
+      meta: { title: '药品支付' },
+      component: () => import('../views/Order/OrderPay.vue')
+    },
+    {
+      path: '/order/pay/result',
+      meta: { title: '药品支付结果' },
+      component: () => import('../views/Order/OrderPayResult.vue')
+    },
+    {
+      path: '/order/:id',
+      meta: { title: '药品订单详情' },
+      component: () => import('../views/Order/OrderDetail.vue')
+    },
+    {
+      path: '/order/logistics/:id',
+      meta: { title: '物流详情' },
+      component: () => import('../views/Order/OrderLogistics.vue')
+    },
+    {
       path: '/',
       name: 'layout',
       component: () => import('../views/Layout/index.vue'),
