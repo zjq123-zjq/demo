@@ -1,5 +1,6 @@
 import { getPrescriptionPic } from '@/services/consult'
 import { showImagePreview } from 'vant'
+//查看处方
 export const useShowPrescription = () => {
   const showPrescription = async (id?: string) => {
     if (id) {

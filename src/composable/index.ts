@@ -3,7 +3,7 @@ import type { FollowType, ConsultOrderItem } from '@/types/consult'
 import { followDotor, cancelOrder, getPrescriptionPic, deleteOrder } from '@/services/consult'
 import { OrderType } from '@/enums'
 
-import { ImagePreview, showToast } from 'vant'
+import { ImagePreview, showToast, showImagePreview } from 'vant'
 import type { OrderDetailResponseType } from '@/types/order'
 import { getMedicalOrderDetail } from '@/services/order'
 export const useFollow = (type: FollowType = 'doc') => {
@@ -56,7 +56,7 @@ export const useDeleteOrder = (cb: (id: string | number) => void) => {
   }
   return { deleteLoading, deleteConsultOrder }
 }
-
+//药品订单详情
 export function useMedicineOrderDetail(id: string) {
   const item = ref<OrderDetailResponseType>()
   const initMedicineOrderDetail = async () => {

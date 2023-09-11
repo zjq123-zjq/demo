@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { getMedicalOrderLogistics } from '@/services/order'
+import { getLogisticsDetail } from '@/services/order'
 import type { ExpressResponseType, LogisticsInfo } from '@/types/order'
 import { ref, onMounted } from 'vue'
 import { useRoute } from 'vue-router'
@@ -10,7 +10,7 @@ import carImg from '@/assets/car.png'
 const route = useRoute()
 const logistics = ref<ExpressResponseType>()
 const initLogisticsDetail = async () => {
-  const LogisticsRes = await getMedicalOrderLogistics(route.params.id as string)
+  const LogisticsRes = await getLogisticsDetail(route.params.id as string)
   console.log('LogisticsRes', LogisticsRes)
   logistics.value = LogisticsRes.data
 }

@@ -28,6 +28,6 @@ export const getMedicalOrderDetail = (id: string) => {
 }
 
 //获取物流详情
-export const getMedicalOrderLogistics = (id: string) => {
+export const getLogisticsDetail = (id: string) => {
   return request<ExpressResponseType>(`/patient/order/${id}/logistics`, 'GET')
 }
