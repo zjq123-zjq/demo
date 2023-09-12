@@ -22,7 +22,7 @@ window._AMapSecurityConfig = {
   securityJsCode: '415e917da833efcf2d5b69f4d821784b'
 }
 
-onMounted(() => {
+onMounted(async () => {
   AMapLoader.load({
     key: '4eed3d61125c8b9c168fc22414aaef7e', // 申请好的Web端开发者Key，首次调用 load 时必填
     version: '2.0' // 指定要加载的 JSAPI 的版本，缺省时默认为 1.4.15
@@ -60,7 +60,7 @@ onMounted(() => {
             // 将 Icon 实例添加到 marker 上:
             const marker = new AMap.Marker({
               position: [point?.longitude, point?.latitude],
-              icon: icon, // 添加 Icon 实例
+              icon: icon, //  Icon 实例
               zoom: 13
             })
 
@@ -82,12 +82,9 @@ onMounted(() => {
             function () {
               // 当前车辆的位置
               const curr = logistics.value?.currentLocationInfo
-
               // 添加车辆标注点
               const currMarker = getMarker(curr!, carImg, 33, 20)
-
               map.add(currMarker)
-
               setTimeout(() => {
                 map.setFitView([currMarker])
                 map.setZoom(10)
@@ -98,7 +95,7 @@ onMounted(() => {
       })
     })
     .catch((e) => {
-      console.error(e) //加载错误提示
+      console.error(e) //错误提示
     })
 })
 </script>
@@ -111,7 +108,6 @@ onMounted(() => {
         <span>{{ logistics?.statusValue }}</span>
         <van-icon name="service" />
       </div>
-
       <div class="current">
         <p class="status">{{ logistics?.statusValue }} 预计{{ logistics?.estimatedTime }}送达</p>
         <p class="predict">
@@ -134,11 +130,17 @@ onMounted(() => {
 </template>
 
 <style lang="scss" scoped>
+.order-logistics-page {
+  --van-step-icon-size: 18px;
+  --van-step-circle-size: 10px;
+}
+
 #map {
   height: 450px;
   background-color: yellow;
   overflow: hidden;
   position: relative;
+
   .title {
     background-color: #fff;
     height: 46px;
@@ -162,6 +164,7 @@ onMounted(() => {
     .van-icon {
       font-size: 18px;
       color: #666;
+
       &:last-child {
         color: var(--cp-primary);
       }
@@ -190,6 +193,7 @@ onMounted(() => {
       color: var(--cp-tip);
       font-size: 13px;
       margin-top: 5px;
+
       > span {
         padding-right: 10px;
       }
@@ -199,27 +203,32 @@ onMounted(() => {
 
 .logistics {
   padding: 0 10px 20px;
+
   .title {
     font-size: 16px;
     padding: 15px 5px 5px;
   }
 }
+
 .van-steps {
   :deep(.van-step) {
     &::after {
       display: none;
     }
   }
+
   .status {
     font-size: 15px;
     color: var(--cp-text3);
     margin-bottom: 4px;
   }
+
   .content {
     font-size: 13px;
     color: var(--cp-tip);
     margin-bottom: 4px;
   }
+
   .time {
     font-size: 13px;
     color: var(--cp-tag);

@@ -64,19 +64,19 @@ const onClose = () => {
       return true
     })
 }
-const pay = async () => {
-  if (paymentMethod.value === undefined) return showToast('请选择支付方式')
-  showLoadingToast({
-    message: '跳转支付',
-    forbidClick: true
-  })
-  const res = await getConsultOrderPayUrl({
-    orderId: orderId.value,
-    paymentMethod: paymentMethod.value,
-    payCallback: 'http://localhost:5173/#/room'
-  })
-  window.location.href = res.data.payUrl
-}
+// const pay = async () => {
+//   if (paymentMethod.value === undefined) return showToast('请选择支付方式')
+//   showLoadingToast({
+//     message: '跳转支付',
+//     forbidClick: true
+//   })
+//   const res = await getConsultOrderPayUrl({
+//     orderId: orderId.value,
+//     paymentMethod: paymentMethod.value,
+//     payCallback: 'http://localhost:5173/#/room'
+//   })
+//   window.location.href = res.data.payUrl
+// }
 onMounted(() => {
   if (
     !store.consult.type ||

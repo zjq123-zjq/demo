@@ -2,12 +2,13 @@
 import { ref } from 'vue'
 import { showLoadingToast, closeToast, showToast } from 'vant'
 import { uploadImage } from '@/services/consult'
+import type { Img } from '@/types/room'
 defineProps<{
   disabled: boolean
 }>()
 const emit = defineEmits<{
   (e: 'send-text', text: string): void
-  (e: 'send-image', { id: string, url: string }): void
+  (e: 'send-image', img: Img): void
 }>()
 
 const text = ref<string>('')

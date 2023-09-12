@@ -101,3 +101,8 @@ export type TimeMessages = {
   // 会话ID
   sid: string
 }
+
+export type Img = {
+  id: string
+  url: string
+}

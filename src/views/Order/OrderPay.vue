@@ -55,7 +55,7 @@ const onClose = () => {
     <div class="order-address">
       <p class="area">
         <van-icon name="location"></van-icon>
-        <span>{{ address?.province }}</span>
+        <span>{{ address.province + address.city + address.county }}</span>
       </p>
       <p class="detail">{{ address?.addressDetail }}</p>
       <p>
@@ -68,20 +68,20 @@ const onClose = () => {
         <h3>优医药房</h3>
         <small>优医质保 假一赔十</small>
       </div>
-      <div class="item van-hairline--top" v-for="i in item.medicines" :key="i.id">
-        <img class="img" :src="i.avatar" alt="" />
+      <div class="item van-hairline--top" v-for="ele in item.medicines" :key="ele.id">
+        <img class="img" :src="ele.avatar" alt="" />
         <div class="info">
           <p class="name">
-            <span>{{ i.name }}</span>
-            <span>×{{ i.quantity }}</span>
+            <span>{{ ele.name }}</span>
+            <span>×{{ ele.quantity }}</span>
           </p>
           <p class="size">
-            <van-tag v-if="i.prescriptionFlag === 1">处方药</van-tag>
-            <span>{{ i.specs }}</span>
+            <van-tag v-if="ele.prescriptionFlag === 1">处方药</van-tag>
+            <span>{{ ele.specs }}</span>
           </p>
-          <p class="price">￥{{ i.amount }}</p>
+          <p class="price">￥{{ ele.amount }}</p>
         </div>
-        <div class="desc">{{ i.usageDosag }}</div>
+        <div class="desc">{{ ele.usageDosag }}</div>
       </div>
     </div>
     <div class="order-detail">

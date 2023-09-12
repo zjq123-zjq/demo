@@ -14,7 +14,7 @@ const { status, countdown } = defineProps<{
     </div>
     <div class="chat" v-if="status === OrderType.ConsultChat">
       <span>咨询中</span>
-      <span class="time">剩余时间: <van-count-down :time="countdown * 1000" /></span>
+      <span class="time">剩余时间: <van-count-down :time="countdown! * 1000" /></span>
     </div>
     <div
       class="end"

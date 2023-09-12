@@ -56,7 +56,6 @@ const buy = (id: string) => {
           <span>订单取消</span>
         </div>
       </div>
-
       <!-- 病情描述 -->
       <div class="msg msg-illness" v-if="item?.msgType === MsgType.CardPat">
         <div class="patient van-hairline-bottom" v-if="item.msg.consultRecord">
